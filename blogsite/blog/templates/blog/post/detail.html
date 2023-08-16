@@ -1,4 +1,7 @@
-{% extends "blog/base.html" %} {% block title %} {{ post.title}} {% endblock %}
+{% extends "blog/base.html" %} 
+{% load blog_tags %}
+
+{% block title %} {{ post.title}} {% endblock %}
 {% block content %}
 
 <div class="card mt-4">
@@ -23,7 +26,7 @@
             </p>
             <small>Published {{ post.publish }} by {{ post.author }} </small>
         </div>
-        <p class="card-text">{{ post.body|linebreaks }}</p>
+        <p class="card-text">{{ post.body|markdown }}</p>
     </div>
 </div>
 
@@ -61,9 +64,11 @@
 
 {% block sidebar %}
 <h4>Similar Posts</h4>
+<ul>
 {% for post in similar_posts %}
-<p>
+<li>
     <a href="{{ post.get_absolute_url }}"> {{ post.title}} </a>
-</p>
+</li>
 {% empty %} There area no similar posts yet. {% endfor %} 
+</ul>
 {% endblock sidebar %}
